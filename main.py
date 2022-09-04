@@ -3,7 +3,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-uhyikhujk
+
 @app.route('/')
 def index():
     # return 'Hello!'
@@ -59,7 +59,7 @@ as templates and static files.</p></li>
 <li><p>We then use the <a class="reference internal" href="../api/#flask.Flask.route" title="flask.Flask.route"><code class="xref py py-meth docutils literal notranslate"><span class="pre">route()</span></code></a> decorator to tell Flask
 what URL should trigger our function.</p></li>
 <li><p>The function returns the message we want to display in the user’s
-browser. The default content type is HTML, so HTML in the string
+browser. The default content type is HTML, so HTML in the string<br>
 will be rendered by the browser.</p></li>
 </ol>
 <p>Save it as <code class="file docutils literal notranslate"><span class="pre">hello.py</span></code> or something similar. Make sure to not call
