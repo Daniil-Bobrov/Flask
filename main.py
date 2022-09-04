@@ -747,12 +747,12 @@ sessions work:</p>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">'POST'</span><span class="p">:</span>
         <span class="n">session</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">'index'</span><span class="p">))</span>
-    <span class="k">return</span> <span class="s1">'''+"""'''"""+'''</span>
+    <span class="k">return</span> <span class="s1">''' + """'''""" + '''</span>
 <span class="s1">        &lt;form method="post"&gt;</span>
 <span class="s1">            &lt;p&gt;&lt;input type=text name=username&gt;</span>
 <span class="s1">            &lt;p&gt;&lt;input type=submit value=Login&gt;</span>
 <span class="s1">        &lt;/form&gt;</span>
-<span class="s1">    '''+"""'''"""+'''</span>
+<span class="s1">    ''' + """'''""" + '''</span>
 
 <span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">'/logout'</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">logout</span><span class="p">():</span>
