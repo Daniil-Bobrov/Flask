@@ -1,5 +1,10 @@
 # noinspection PyUnresolvedReferences
 from flask import Flask
+# noinspection PyUnresolvedReferences
+from flask import render_template
+from bs4 import BeautifulSoup
+import requests
+import random
 
 app = Flask(__name__)
 
@@ -834,45 +839,73 @@ LX
 @app.route('/index')
 def index():
     images = {
-        "cat1": ("кот", "https://thiscatdoesnotexist.com/"),
-        "cat2": ("рисунок", "https://thisartworkdoesnotexist.com/"),
-        "cat3": ("типо лошадь", "https://thishorsedoesnotexist.com/"),
+        "cat1": {
+            "text": "кот",
+            "url": "https://thiscatdoesnotexist.com/"
+        },
+        "cat2": {
+            "text": "рисунок",
+            "url": "https://thisartworkdoesnotexist.com/"
+        },
+        "cat3": {
+            "text": "лошадь",
+            "url": "https://thishorsedoesnotexist.com/"
+        },
+        "c4": {
+            "c2": "text"
+        }
     }
-    return f"""
-<html>
-    <title>Волга</title>
-    <body>
-        <div>
-            <center>
-                <p>
-                    <h1>{images["cat1"][0]}
-                </p>
-                <img align='center' width="512" height="512" src={images["cat1"][1]}>
-            </center>
-            
-            <center>
-                <p>
-                    <h1>{images["cat2"][0]}
-                </p>
-                <img align='center' width="512" height="512" src={images["cat2"][1]}>
-            </center>
-            
-            <center>
-                <p>
-                    <h1>{images["cat3"][0]}
-                </p>
-                <img align='center' width="512" height="512" src={images["cat3"][1]}>
-            </center>
-        </div>
-    </body>
-</html>
-    """
+    names = [
+        "привет",
+        "это самый лучший сайт",
+        "как дела?",
+        "не придумал("
+    ]
+    number = random.randint(0, 3)
+
+    return render_template(
+        "index.html",
+        images=images,
+        num=number,
+    )
 
 
 @app.route('/user/<name>')
 def show_user_profile1(name):
     text = f"Привет, {name}"
     return text
+
+
+@app.route('/read/<int:page>')
+def read(page):
+    url = f'https://ilibrary.ru/text/436/p.{str(page)}/index.html'
+    page = requests.get(url)
+    # Проверим подключение:
+    print(page.status_code)
+
+    new_news = []
+    news = []
+
+    soup = BeautifulSoup(page.text, "html.parser")
+
+    news = soup.findAll('span', class_='pmm')
+
+    for i in range(len(news)):
+        news[i] = str(news[i])
+    print(news)
+    print(type(page))
+    return f"""
+<html>
+<title>Евгений Онегин</title>
+<body>
+{news[0]}
+<p>
+    <a href=f'https://ilibrary.ru/text/436/p.{int(str(page)) - 1}/index.html'>предыдущая страница</a>
+    <a href=f'https://ilibrary.ru/text/436/p.{int(str(page)) + 1}/index.html'>следующая страница</a>
+</p>
+</body>
+</html>
+"""
 
 
 app.run(debug=True)
