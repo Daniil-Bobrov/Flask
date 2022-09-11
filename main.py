@@ -6,7 +6,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    # return 'Hello!'
     return '''
 <body>
     <div class="related" role="navigation" aria-label="related navigation">
