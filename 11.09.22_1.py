@@ -1050,7 +1050,7 @@ def index():
     # </body>'''
     return ""
 
-[plk[]]
+
 @app.route('/')
 def index():
     # return 'Hello!'
@@ -2927,7 +2927,7 @@ LX
 
 @app.route('/index')
 def index(name):
-    cars = {name: "Волга"}
+    cars = {name: ("Волга", "")}
 
 
 @app.route('/user/<name>')
