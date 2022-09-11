@@ -832,8 +832,41 @@ LX
 
 
 @app.route('/index')
-def index(name):
-    cars = {name: ("Волга", "https://img.desktopwallpapers.ru/auto/pics/222-1024.jpg")}
+def index():
+    images = {
+        "cat1": ("кот", "https://thiscatdoesnotexist.com/"),
+        "cat2": ("рисунок", "https://thisartworkdoesnotexist.com/"),
+        "cat3": ("типо лошадь", "https://thishorsedoesnotexist.com/"),
+    }
+    return f"""
+<html>
+    <title>Волга</title>
+    <body>
+        <div>
+            <center>
+                <p>
+                    <h1>{images["cat1"][0]}
+                </p>
+                <img align='center' width="512" height="512" src={images["cat1"][1]}>
+            </center>
+            
+            <center>
+                <p>
+                    <h1>{images["cat2"][0]}
+                </p>
+                <img align='center' width="512" height="512" src={images["cat2"][1]}>
+            </center>
+            
+            <center>
+                <p>
+                    <h1>{images["cat3"][0]}
+                </p>
+                <img align='center' width="512" height="512" src={images["cat3"][1]}>
+            </center>
+        </div>
+    </body>
+</html>
+    """
 
 
 @app.route('/user/<name>')
