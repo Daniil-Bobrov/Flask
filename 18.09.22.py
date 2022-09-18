@@ -4,7 +4,6 @@ from flask import Flask
 from flask import render_template
 # noinspection PyUnresolvedReferences
 from flask import request
-import random
 
 app = Flask(__name__)
 
