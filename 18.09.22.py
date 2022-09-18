@@ -6,7 +6,10 @@ from flask import render_template
 from flask import request
 import random
 
+from config import Config
+
 app = Flask(__name__)
+app.config.from_object(Config)
 
 
 @app.route("/")
