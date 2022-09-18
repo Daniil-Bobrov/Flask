@@ -4,6 +4,7 @@ from flask import Flask
 from flask import render_template
 # noinspection PyUnresolvedReferences
 from flask import request
+import random
 
 app = Flask(__name__)
 
@@ -28,6 +29,41 @@ def exersice():
         "exersice.html",
         input=text,
         output=result,
+    )
+
+
+@app.route('/index')
+def index():
+    images = {
+        "cat1": {
+            "text": "кот",
+            "url": "https://thiscatdoesnotexist.com/"
+        },
+        "cat2": {
+            "text": "рисунок",
+            "url": "https://thisartworkdoesnotexist.com/"
+        },
+        "cat3": {
+            "text": "лошадь",
+            "url": "https://thishorsedoesnotexist.com/"
+        },
+        "c4": {
+            "c2": "text"
+        }
+    }
+    names = [
+        "привет",
+        "это самый лучший сайт",
+        "как дела?",
+        "не придумал("
+    ]
+    number = random.randint(0, 3)
+
+    return render_template(
+        "index.html",
+        images=images,
+        num=number,
+        random=random.randint,
     )
 
 
