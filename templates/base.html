@@ -8,5 +8,11 @@
     {% elif num == 3 %}
         <title>не придумал(</title>
     {% endif %}
-    {% block content %}{% endblock %}
+    <body>
+        <h1><a href="/home">Домой</a></h1>
+        <hr>
+        {% block content %}{% endblock %}
+        <hr>
+        <h1><a href="/home">Домой</a></h1>
+    </body>
 </html>

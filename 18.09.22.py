@@ -9,6 +9,15 @@ import random
 app = Flask(__name__)
 
 
+@app.route("/")
+@app.route('/home')
+def home():
+    return """
+    <a href="/exersice">exersice</a><br>
+    <a href="/index">index</a><br>
+    """
+
+
 @app.route('/exersice', methods=['GET', 'POST'])
 def exersice():
     text = ""
@@ -29,6 +38,7 @@ def exersice():
         "exersice.html",
         input=text,
         output=result,
+        num=random.randint(0, 3),
     )
 
 
