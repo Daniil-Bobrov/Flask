@@ -867,6 +867,7 @@ def index():
         "index.html",
         images=images,
         num=number,
+        random=random.randint,
     )
 
 
@@ -876,9 +877,10 @@ def show_user_profile1(name):
     return text
 
 
-@app.route('/read/<int:page>')
-def read(page):
-    url = f'https://ilibrary.ru/text/436/p.{str(page)}/index.html'
+@app.route('/read/<int:page_number>')
+def read(page_number):
+    print(page_number, type(page_number))
+    url = f'https://ilibrary.ru/text/436/p.{str(page_number)}/index.html'
     page = requests.get(url)
     # Проверим подключение:
     print(page.status_code)
@@ -892,20 +894,26 @@ def read(page):
 
     for i in range(len(news)):
         news[i] = str(news[i])
-    print(news)
-    print(type(page))
+    # print(news)
+    # print(type(page))
     return f"""
 <html>
 <title>Евгений Онегин</title>
 <body>
 {news[0]}
 <p>
-    <a href=f'https://ilibrary.ru/text/436/p.{int(str(page)) - 1}/index.html'>предыдущая страница</a>
-    <a href=f'https://ilibrary.ru/text/436/p.{int(str(page)) + 1}/index.html'>следующая страница</a>
+    {"<a href=/read/" + str(page_number - 1) + "> предыдущая страница </a>" if page_number != 1 else ""}
+    {"<a href=/read/" + str(page_number + 1) + "> следующая страница </a>" if page_number != 12 else ""}
 </p>
 </body>
 </html>
 """
+
+
+@app.route('/post/<int:post_id>')
+def show_post(post_id):
+    print(post_id, type(post_id))
+    return f'Post {post_id}'
 
 
 app.run(debug=True)
