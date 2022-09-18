@@ -31,4 +31,4 @@ def exersice():
     )
 
 
-app.run(debug=True)
+app.run()
