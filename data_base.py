@@ -15,9 +15,9 @@ class FDataBase:
         self.__db = db
         self.__cur = db.cursor()
 
-    def addMenu(self, title, url):
+    def addMenu(self, title, url, text):
         try:
-            self.__cur.execute('INSERT INTO mainmenu VALUES (NULL, ?, ?)', (title, url))
+            self.__cur.execute('INSERT INTO mainmenu VALUES (NULL, ?, ?, ?)', (title, url, text))
             self.__db.commit()
         except sqlite3.Error as e:
             print('Ошибка добавления в БД', str(e))
@@ -41,7 +41,8 @@ class FDataBase:
             sql = """SELECT *  FROM mainmenu"""
             self.__cur.execute(sql)
             res = self.__cur.fetchall()
-            if res: return res
+            if res:
+                return res
         except:
             print('Ошибка чтения из БД')
             return []
@@ -53,11 +54,12 @@ if __name__ == '__main__':
     print(create_db.__doc__)
     db = connect_db()
     db = FDataBase(db)
-    for i in db.getMenu():
-        print(i['url'])
-    print(*db.getMenu())
+    # for i in db.getMenu():
+    #     print(i['url'])
+    # print(*db.getMenu())
     # print(db.delMenu())
     # print(db.addMenu('Главная', 'index'))
-    # print(db.addMenu('Главная', 'index'))
+    # print(db.delMenu(6))
     # print(db.addMenu('Авторизация1', 'login'))
     # print(db.addMenu('Авторизация2', 'login2'))
+    # create_db()

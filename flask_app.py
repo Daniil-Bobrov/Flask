@@ -5,6 +5,7 @@ import sqlite3
 from flask import Flask, render_template, flash, redirect, session, url_for, request, abort, g
 
 from data_base import FDataBase
+import random
 from forms import LoginForm
 
 from config import Config
@@ -75,15 +76,38 @@ def profile(username):
 
 @app.route('/')
 @app.route('/index')
-def index():  # put application's code here
-    db = get_db()
-    database = FDataBase(db)
+def index():
+    images = {
+        "cat1": {
+            "text": "кот",
+            "url": "https://thiscatdoesnotexist.com/"
+        },
+        "cat2": {
+            "text": "рисунок",
+            "url": "https://thisartworkdoesnotexist.com/"
+        },
+        "cat3": {
+            "text": "лошадь",
+            "url": "https://thishorsedoesnotexist.com/"
+        },
+        "c4": {
+            "c2": "text"
+        }
+    }
+    names = [
+        "привет",
+        "это самый лучший сайт",
+        "как дела?",
+        "не придумал("
+    ]
+    number = random.randint(0, 3)
 
-    car = {'name': ('bugatty',
-
-                    'https://libertycity.ru/uploads/download/gta5_bugatti/fulls/j4q9k776k31rt5p2jnd2823s63/15043684584016_f61541-1.jpg')}
-
-    return render_template('index.html', name=car['name'][0], foto=car['name'][1], title='1', menu=database.getMenu())
+    return render_template(
+        "index.html",
+        images=images,
+        num=number,
+        random=random.randint,
+    )
 
 
 @app.route('/petya/')
@@ -97,14 +121,32 @@ def petya():  # put application's code here
     </h2> '''
 
 
-# @app.route('/user/<username>')
-# def user_profile(username):  # put application's code here
-#     return f"<h1>Здраствуй дорогой пользователь {username}</h1>"
-#
-#
-# @app.route('/user/<int:post_id>')
-# def show_post(post_id):  # put application's code here
-#     return f"<h1>Горячая и свежая новость № {post_id}</h1>"
+@app.route('/user/<username>')
+def user_profile(username):  # put application's code here
+    return f"<h1>Здраствуй дорогой пользователь {username}</h1>"
+
+
+@app.route('/user/<int:post_id>')
+def show_post(post_id):  # put application's code here
+    return f"<h1>Горячая и свежая новость № {post_id}</h1>"
+
+
+@app.route('/post', methods=['POST', 'GET'])
+def post():
+    db = connect_db()
+    db = FDataBase(db)
+
+    if request.method == 'POST':
+        if len(request.form["Заголовок статьи"]) > 3 and len(request.form["article_text"]) \
+                and db.addMenu(request.form["Заголовок статьи"], "url", request.form["article_text"]):
+            flash("Статья добавлена успешно", category="success")
+        else:
+            flash("Ошибка добавления статьи", category="error")
+        # name = request.form.get("")
+        # text = request.form.get('')
+        # print(db.addMenu(name, 'url', text))
+    print(db.getMenu())
+    return render_template('post.html', title="Добавить статью")
 
 
 @app.errorhandler(404)

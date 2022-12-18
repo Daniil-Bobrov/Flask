@@ -28,5 +28,24 @@ ul.mainmenu li .last {
 }
 
 ul.mainmenu a {
+    color: #fdc073;
+    text-decoration: none;
+}
+
+ul.mainmenu a:hover {
     color: #8785a2;
+}
+
+.flash {
+    padding: 10px;
+}
+
+.flash.success {
+    border: 1px solid #21db56;
+    background: #aeffc5;
+}
+
+.flash.error {
+    border: 1px solid #ff4334;
+    background: #ff9c9c;
 }
