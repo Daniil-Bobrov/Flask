@@ -1,8 +1,5 @@
-# noinspection PyUnresolvedReferences
 from flask import Flask
-# noinspection PyUnresolvedReferences
 from flask import render_template
-# noinspection PyUnresolvedReferences
 from flask import request
 import random
 

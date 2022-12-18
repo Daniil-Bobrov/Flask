@@ -1,4 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link type="text/css" href="{{url_for('static', filename='css/file.css')}}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
     {% if num == 0 %}
         <title>привет</title>
     {% elif num == 1 %}
@@ -8,11 +13,30 @@
     {% elif num == 3 %}
         <title>не придумал(</title>
     {% endif %}
+</head>
     <body>
-        <h1><a href="/home">Домой</a></h1>
-        <hr>
-        {% block content %}{% endblock %}
-        <hr>
-        <h1><a href="/home">Домой</a></h1>
-    </body>
+
+{% block content %}
+            {%- block mainmenu -%}
+        <ul class="mainmenu">
+            {% for  m in menu -%}
+            <li><a href="{{url_for(m.url)}}"> {{m.title}}</a></li>
+        {% endfor -%}
+        </ul>
+
+            {% endblock mainmenu -%}
+
+<hr>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages  %}
+    <li>{{message}}     </li>
+    {% endfor %}
+
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+</body>
 </html>
